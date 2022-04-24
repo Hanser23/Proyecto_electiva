@@ -6,14 +6,12 @@ html{
     height: 100%;
     margin: 0 auto;
     
-    place-items: center;
   }
 
   .body{
     width: 100%;
     min-height: 100vh;
     display: grid;
-    place-items: center;
   }
   
   .conteiner{
@@ -128,19 +126,19 @@ html{
   } */
   
   .rojo{
-    opacity: 10%;
+    opacity: 30%;
     background-color: #c0392b;
     box-shadow: 0 0 10px 1px #c0392b;
   }
 
   .amarillo{
-    opacity: 10%;
+    opacity: 30%;
     background-color: #f1c40f;
     box-shadow: 0 0 10px 1px #f1c40f;
   }
 
   .verde{
-    opacity: 10%;
+    opacity: 30%;
     background-color: #2ecc71;
     box-shadow: 0 0 10px 1px #2ecc71;
   }
@@ -243,7 +241,7 @@ html{
 
 
   /*  */
-  .green.active{ 
+  /* .green.active{ 
     opacity: 100%; 
   }
 
@@ -254,7 +252,89 @@ html{
 
   .red.active{ 
     opacity: 100%;
+  } */
+  *{
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
   }
+
+  .conteiner1{
+    max-width: 900px;
+    margin: 60px auto;
+    text-align: center;
+    top: 0;
+  }
+
+  .conteiner1 h1, .conteiner1 p{
+    text-align: center;
+    padding: 20px 0;
+
+  }
+
+  .conteiner1 h1{
+    font-size: 4em;
+  }
+
+  .conteiner1 p{
+    font-size: 2em;
+  }
+
+  .center-abs{
+    top: 40%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+  }
+
+  .charts{
+    display: flex;
+  }
+  .chart{
+    top: 50px;
+    left: 50px;
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    padding: 25px;
+  }
+
+  .text{
+    font-family: digital;
+    z-index: 3;
+    text-align: center;
+    width: 100%;
+    font-size: 3.8em;
+    font-weight: 700;
+    color: #da0f00;
+
+  }
+
+  .outer{
+    fill:transparent;
+    /* stroke: #da0f00; */
+    stroke: #baeaff;
+    stroke-width: 10;
+    stroke-dasharray: 439;
+    transform: rotate(270deg) translate(-150px, 0);
+  }  
+
+  .chart svg{
+    z-index: 2;
+  }
+
+  .circle{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    z-index: 1;
+    /* border: 10px #baeaff solid; */
+    border: 10px #da0f00 solid;
+  }
+
 .counter-wrap {
     position: absolute;
     top: 0px;

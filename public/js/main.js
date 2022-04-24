@@ -2,7 +2,7 @@ const socket = io();
 const red = document.getElementById("red")
 const yellow = document.getElementById("yellow")
 const green = document.getElementById("green")
-const counter = document.getElementById("counter-number")
+// const counter = document.getElementById("counter-number")
 const stopbtn = document.getElementById("stopbtn")
 
 const tm = document.getElementById("tm")
@@ -13,7 +13,9 @@ var activeLight = ''
 
 const $lucesCirculo = document.querySelectorAll('.luces-circulo');
 let contLuz = 0;
-console.log($lucesCirculo);
+
+const counter = document.getElementById("seconds");
+// console.log($lucesCirculo);
 
 
 socket.on('connect', function () {
@@ -119,6 +121,7 @@ function initCounter() {
 }
 function updateClock() {
     counter.innerHTML = totalTime;
+
     if(totalTime==0) {
         counter.innerHTML = '00';
         counter.classList.add("disable");
@@ -127,6 +130,7 @@ function updateClock() {
     } else {
         totalTime-=1;
         setTimeout("updateClock()",1000);
+        effectCircle(totalTime);
     }
 }
 
@@ -139,4 +143,15 @@ stopbtn.addEventListener("click", function(){
 // $(document).ready(function() {
 //     $('#maintable').DataTable();
 // } );
+
+effectCircle = function(counter){
+    const seconds = 10;
+    const strokeDash = 439;
+
+    var circleSVG = document.getElementsByClassName('chart');
+
+    var valPerSecond = strokeDash / seconds;
+    var size = strokeDash - (valPerSecond * counter);
+    circleSVG[0].style.strokeDashoffset = size;
+}
 
