@@ -10,6 +10,12 @@ const tp = document.getElementById("tp")
 
 var activeLight = ''
 
+
+const $lucesCirculo = document.querySelectorAll('.luces-circulo');
+let contLuz = 0;
+console.log($lucesCirculo);
+
+
 socket.on('connect', function () {
     console.log('Connected to server');
 });
@@ -42,21 +48,61 @@ socket.on('updateData', function(data) {
    $('#maintable').DataTable()
 })
 
+// function changeLight(light) {
+//     red.classList.remove("active");
+//     yellow.classList.remove("active");
+//     green.classList.remove("active");
+
+//     switch(light) {
+//         case 'GREEN':
+//             green.classList.add("active");
+//           break;
+//         case 'RED':
+//             red.classList.add("active");
+//             initCounter()
+//           break;
+//         case 'YELLOW':
+//             yellow.classList.add("active");
+
+//         break;
+//         default:
+//           // code block
+//       }
+// }
+
 function changeLight(light) {
-    red.classList.remove("active");
-    yellow.classList.remove("active");
-    green.classList.remove("active");
+
+    //$lucesCirculo[contLuz].className = 'luces-circulo';
+    // $lucesCirculo.classList.remove("color");
+    $lucesCirculo[0].classList.remove("active");
+    $lucesCirculo[1].classList.remove("active");
+    $lucesCirculo[2].classList.remove("active");
+    let luzActual = 0;
+    // red.classList.remove("active");
+    // yellow.classList.remove("active");
+    // green.classList.remove("active");
 
     switch(light) {
         case 'GREEN':
-            green.classList.add("active");
+            // green.classList.add("active");
+            //$lucesCirculo.classList.add("active");
+            // $lucesCirculo.classList.add("color");
+            luzActual = $lucesCirculo[2];
+            luzActual.classList.add(luzActual.getAttribute('color'));
+            luzActual.classList.add('active');
           break;
         case 'RED':
-            red.classList.add("active");
+            // red.classList.add("active");
+            luzActual = $lucesCirculo[0];
+            luzActual.classList.add(luzActual.getAttribute('color'));
+            luzActual.classList.add('active');
             initCounter()
           break;
         case 'YELLOW':
-            yellow.classList.add("active");
+            luzActual = $lucesCirculo[1];
+            luzActual.classList.add(luzActual.getAttribute('color'));
+            luzActual.classList.add('active');
+            // yellow.classList.add("active");
 
         break;
         default:
