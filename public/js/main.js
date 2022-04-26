@@ -4,6 +4,8 @@ const yellow = document.getElementById("yellow")
 const green = document.getElementById("green")
 // const counter = document.getElementById("counter-number")
 const stopbtn = document.getElementById("stopbtn")
+const gobtn = document.getElementById("gobtn")
+
 
 const tm = document.getElementById("tm")
 const tp = document.getElementById("tp")
@@ -139,6 +141,12 @@ stopbtn.addEventListener("click", function(){
     socket.emit('stop')
 });
 
+
+
+gobtn.addEventListener("click", function(){
+    console.log("Go")
+    socket.emit('Go')
+});
 
 // $(document).ready(function() {
 //     $('#maintable').DataTable();

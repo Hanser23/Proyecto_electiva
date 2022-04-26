@@ -48,6 +48,9 @@ html{
     top: 5%;
   }
 
+  #gobtn{
+    background-color: rgb(4, 255, 4);
+  }
   .stick{
     width: 8px;
     height: 280px;

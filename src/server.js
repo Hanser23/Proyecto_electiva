@@ -17,7 +17,7 @@ requireDir("./models");
 const Crossing = mongoose.model("crossing");
 
 let currentLight = "GREEN";
-let timer = null;
+let tiempo = null;
 
 app.use(express.json());
 app.use(cors());
@@ -42,21 +42,22 @@ app.get("/api/semaphores/stop", (req, res) => {
     });
   }
 
+
   if (currentLight == "GREEN") {
     console.log(currentLight);
-    if (timer) {
-      clearTimeout(timer);
+    if (tiempo) {
+      clearTimeout(tiempo);
     }
     awsService.device.publish(
-      "semaphore",
+      "Luz del semaphore",
       JSON.stringify({
         light: "YELLOW",
       })
     );
 
-    timer = setTimeout(() => {
+    tiempo = setTimeout(() => {
       awsService.device.publish(
-        "semaphore",
+        "Luz del semaphore",
         JSON.stringify({
           light: "RED",
         })
@@ -66,7 +67,7 @@ app.get("/api/semaphores/stop", (req, res) => {
 
   return res.status(200).json({
     status: true,
-    message: "Semaphore change to red",
+    message: "Luz del semaphore change to red",
   });
 });
 
@@ -87,19 +88,19 @@ io.on("connection", (socket) => {
 
     if (currentLight == "GREEN") {
       console.log(currentLight);
-      if (timer) {
-        clearTimeout(timer);
+      if (tiempo) {
+        clearTimeout(tiempo);
       }
       awsService.device.publish(
-        "semaphore",
+        "Luz del semaphore",
         JSON.stringify({
           light: "YELLOW",
         })
       );
 
-      timer = setTimeout(() => {
+      tiempo = setTimeout(() => {
         awsService.device.publish(
-          "semaphore",
+          "Luz del semaphore",
           JSON.stringify({
             light: "RED",
           })
@@ -109,12 +110,32 @@ io.on("connection", (socket) => {
     }
   });
 });
+io.on("connection", (socket) => {
 
+  io.emit("updateSemaphore", `{"light":"${currentLight}"}`);
+  updateData()
+  socket.on("Go", () => {
+    console.log("Go");
+
+    if (currentLight == "RED") {
+      console.log(currentLight);
+      if (tiempo) {
+        clearTimeout(tiempo);
+      }
+      awsService.device.publish(
+        "Luz del semaphore",
+        JSON.stringify({
+          light: "GREEN",
+        })
+      );
+    }
+  });
+});
 awsService.device.on("connect", function () {
   console.log("connect");
-  awsService.device.subscribe("semaphore");
+  awsService.device.subscribe("Luz del semaphore");
   awsService.device.publish(
-    "semaphore",
+    "Luz del semaphore",
     JSON.stringify({
       light: "GREEN",
     })
@@ -133,7 +154,7 @@ awsService.device.on("error", function (error) {
   console.log("error", error);
 });
 awsService.device.on("message", function (topic, payload) {
-  console.log("message", topic, payload.toString());
+  console.log(topic, payload.toString());
   currentLight = JSON.parse(payload.toString()).light;
   app.set("currentLight", currentLight);
   io.emit("updateSemaphore", payload.toString());
@@ -142,9 +163,9 @@ awsService.device.on("message", function (topic, payload) {
 
 function semaphoreLogic() {
   if (currentLight == "RED") {
-    timer = setTimeout(() => {
+    tiempo = setTimeout(() => {
       awsService.device.publish(
-        "semaphore",
+        "Luz del semaphore",
         JSON.stringify({
           light: "GREEN",
         })
@@ -153,17 +174,17 @@ function semaphoreLogic() {
   }
 
   if (currentLight == "GREEN") {
-    timer = setTimeout(() => {
+    tiempo = setTimeout(() => {
       awsService.device.publish(
-        "semaphore",
+        "Luz del semaphore",
         JSON.stringify({
           light: "YELLOW",
         })
       );
 
-      timer = setTimeout(() => {
+      tiempo = setTimeout(() => {
         awsService.device.publish(
-          "semaphore",
+          "Luz del semaphore",
           JSON.stringify({
             light: "RED",
           })
